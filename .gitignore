@@ -1,5 +1,5 @@
 # Node.js dependencies
-node_modules/
+kkf/node_modules/
 
 # Build output
 build/
@@ -30,3 +30,5 @@ coverage/
 # OS generated files
 Thumbs.db
 ehthumbs.db
+/src/app/backend-types/
+/src/assets/generated/

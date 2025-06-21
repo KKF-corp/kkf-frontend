@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@angular/common": "^20.0.4",
+    "@angular/core": "^20.0.4",
     "@dnd-kit/core": "^6.3.1",
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
@@ -22,14 +24,17 @@
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.0",
     "react-scripts": "^5.0.1",
+    "swagger-codegen": "^0.1.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "kkf/node_modules/.bin/react-scripts start",
+    "build": "kkf/node_modules/.bin/react-scripts build",
+    "test": "kkf/node_modules/.bin/react-scripts test",
+    "eject": "kkf/node_modules/.bin/react-scripts eject",
+    "prebuild": "npm run extract-backend-types",
+    "extract-backend-types": "rm -rf src/app/backend-types && mkdir -p src/app/backend-types && tar -xzvf src/assets/generated/frontend-files.tgz -C src/app/backend-types --strip-components=5"
   },
   "eslintConfig": {
     "extends": [
