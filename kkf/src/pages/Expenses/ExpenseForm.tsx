@@ -1,0 +1,126 @@
+import React, { useState, useEffect } from "react";
+import { Box, TextField, Button } from "@mui/material";
+import { Expense } from "../../types/Expense";
+
+interface ExpenseFormProps {
+  initial?: Expense | null;
+  onSubmit: (expense: Expense) => void;
+  onCancel: () => void;
+}
+
+const emptyExpense: Omit<Expense, "id"> = {
+  name: "",
+  description: "",
+  purchaseDate: "",
+  totalNetPrice: 0,
+  totalGrossPrice: 0,
+  categoryId: 0,
+  transactionType: "expense",
+};
+
+const ExpenseForm: React.FC<ExpenseFormProps> = ({
+  initial,
+  onSubmit,
+  onCancel,
+}) => {
+  const [form, setForm] = useState<Omit<Expense, "id">>(emptyExpense);
+
+  useEffect(() => {
+    if (initial) {
+      const { id, ...rest } = initial;
+      setForm(rest);
+    } else {
+      setForm(emptyExpense);
+    }
+  }, [initial]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm({ ...form, [e.target.name]: Number(e.target.value) });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(
+      initial
+        ? { ...form, id: initial.id }
+        : { ...form, id: Date.now() }
+    );
+  };
+
+  return (
+    <Box component="form" onSubmit={handleSubmit} sx={{ maxWidth: 400 }}>
+      <TextField
+        label="Nazwa"
+        name="name"
+        value={form.name}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        required
+      />
+      <TextField
+        label="Opis"
+        name="description"
+        value={form.description}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+      />
+      <TextField
+        label="Data zakupu"
+        name="purchaseDate"
+        value={form.purchaseDate}
+        onChange={handleChange}
+        fullWidth
+        margin="normal"
+        type="date"
+        InputLabelProps={{ shrink: true }}
+        required
+      />
+      <TextField
+        label="Netto"
+        name="totalNetPrice"
+        value={form.totalNetPrice}
+        onChange={handleNumberChange}
+        fullWidth
+        margin="normal"
+        type="number"
+        required
+      />
+      <TextField
+        label="Brutto"
+        name="totalGrossPrice"
+        value={form.totalGrossPrice}
+        onChange={handleNumberChange}
+        fullWidth
+        margin="normal"
+        type="number"
+        required
+      />
+      <TextField
+        label="Kategoria (ID)"
+        name="categoryId"
+        value={form.categoryId}
+        onChange={handleNumberChange}
+        fullWidth
+        margin="normal"
+        type="number"
+        required
+      />
+      <Box sx={{ display: "flex", gap: 2, mt: 2 }}>
+        <Button type="submit" variant="contained" color="primary">
+          Zapisz
+        </Button>
+        <Button onClick={onCancel} variant="outlined">
+          Anuluj
+        </Button>
+      </Box>
+    </Box>
+  );
+};
+
+export default ExpenseForm;

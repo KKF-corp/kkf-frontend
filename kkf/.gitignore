@@ -1,0 +1,32 @@
+# Node.js dependencies
+node_modules/
+
+# Build output
+build/
+dist/
+out/
+coverage/
+
+# Log files
+*.log
+
+# System/IDE files
+.DS_Store
+.vscode/
+.idea/
+
+# Env files (dane wrażliwe)
+.env
+.env.local
+
+# Test/coverage
+coverage/
+*.lcov
+
+# Temporary files
+*.tmp
+*.swp
+
+# OS generated files
+Thumbs.db
+ehthumbs.db
