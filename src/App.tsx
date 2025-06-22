@@ -1,46 +1,53 @@
 import React from 'react';
-import { ThemeProvider as MuiThemeProvider, CssBaseline } from '@mui/material';
-import { getTheme } from './theme/muiTheme'; // <- popraw ścieżkę zgodnie z Twoją strukturą!
-import Sidebar from './components/layout/Sidebar';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Dashboard from './pages/Dashboard';
-import RevenuesList from './pages/Revenues/RevenuesList';
-import ExpensesList from './pages/Expenses/ExpensesList';
-import TransactionsList from './pages/Transactions/TransactionsList';
-import InvoicesList from './pages/Invoices/InvoicesList';
-import ContractorsList from './pages/Contractors/ContractorsList';
-import ServicesList from './pages/Services/ServicesList';
-import { CustomThemeProvider, useCustomTheme } from './context/ThemeContext';
+import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
+import './App.css'; // Assuming you want to keep the existing App.css
 
-const MainApp = () => {
-  const { mode } = useCustomTheme();
+// Import the components from the new components folder
+import Przychody from './components/Przychody';
+import Rozchody from './components/Rozchody';
+import Bilans from './components/Bilans';
+import Slowniki from './components/Slowniki';
+import Administrator from './components/Administrator';
+
+function App() {
   return (
-    <MuiThemeProvider theme={getTheme(mode)}>
-      <CssBaseline />
-      <BrowserRouter>
-        <div style={{ display: 'flex', minHeight: '100vh', background: 'background.default' }}>
-          <Sidebar />
-          <main style={{ flexGrow: 1, padding: 24 }}>
-            <Routes>
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/revenues" element={<RevenuesList />} />
-              <Route path="/expenses" element={<ExpensesList />} />
-              <Route path="/transactions" element={<TransactionsList />} />
-              <Route path="/invoices" element={<InvoicesList />} />
-              <Route path="/contractors" element={<ContractorsList />} />
-              <Route path="/services" element={<ServicesList />} />
-            </Routes>
-          </main>
-        </div>
-      </BrowserRouter>
-    </MuiThemeProvider>
-  );
-};
+    <Router>
+      <div className="App">
+        <header className="App-header">
+          <nav>
+            <ul style={{ display: 'flex', listStyle: 'none', padding: 0 }}>
+              <li style={{ margin: '0 10px' }}>
+                <NavLink to="/przychody" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Przychody</NavLink>
+              </li>
+              <li style={{ margin: '0 10px' }}>
+                <NavLink to="/rozchody" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Rozchody</NavLink>
+              </li>
+              <li style={{ margin: '0 10px' }}>
+                <NavLink to="/bilans" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Bilans</NavLink>
+              </li>
+              <li style={{ margin: '0 10px' }}>
+                <NavLink to="/slowniki" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Słowniki</NavLink>
+              </li>
+              <li style={{ margin: '0 10px' }}>
+                <NavLink to="/administrator" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Administrator</NavLink>
+              </li>
+            </ul>
+          </nav>
+        </header>
 
-const App = () => (
-  <CustomThemeProvider>
-    <MainApp />
-  </CustomThemeProvider>
-);
+        <main>
+          <Routes>
+            <Route path="/przychody" element={<Przychody />} />
+            <Route path="/rozchody" element={<Rozchody />} />
+            <Route path="/bilans" element={<Bilans />} />
+            <Route path="/slowniki" element={<Slowniki />} />
+            <Route path="/administrator" element={<Administrator />} />
+            <Route path="/" element={<h2>Wybierz zakładkę powyżej</h2>} /> {/* Default route */}
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
+}
 
 export default App;

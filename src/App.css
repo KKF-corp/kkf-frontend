@@ -15,13 +15,48 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  /* Reduced min-height to make it less intrusive */
+  min-height: 80px; /* Adjust as needed, e.g., 60px, 100px */
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(8px + 1vmin); /* Slightly smaller font for the header */
   color: white;
+  width: 100%;
+  position: sticky; /* Make the header stick to the top */
+  top: 0;
+  z-index: 1000; /* Ensure it stays on top of other content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: add a subtle shadow */
+}
+
+.App-header nav ul {
+  margin: 0; /* Remove default margin */
+  padding: 0; /* Remove default padding */
+  list-style: none;
+  display: flex;
+  justify-content: center; /* Center the navigation items */
+  width: 100%;
+}
+
+.App-header nav li {
+  margin: 0 15px; /* Adjust spacing between tabs */
+}
+
+.App-header nav a {
+  color: white; /* Default link color */
+  text-decoration: none; /* Remove underline */
+  padding: 10px 0; /* Add some padding for clickable area */
+  transition: color 0.3s ease; /* Smooth color transition on hover */
+}
+
+.App-header nav a:hover {
+  color: #61dafb; /* Highlight on hover */
+}
+
+.App-header nav a.active-link {
+  color: #61dafb; /* Color for the active link */
+  border-bottom: 2px solid #61dafb; /* Underline active link */
 }
 
 .App-link {
@@ -35,4 +70,8 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+main {
+  padding: 20px; /* Add some padding to the main content area */
 }
